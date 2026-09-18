@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Retail Analytics Dashboard</title>
+<link rel="stylesheet" href="assets/css/style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="brand">Retail Analytics</div><div class="period">Sales & Operational Efficiency · 2020–2023</div>
+  <nav class="nav">
+    <button class="nav-btn active" data-page="growth"><span class="nav-num">01</span>Growth Driver Analysis</button>
+    <button class="nav-btn" data-page="promotion"><span class="nav-num">02</span>Promotion Effectiveness</button>
+    <button class="nav-btn" data-page="workforce"><span class="nav-num">03</span>Workforce & Store Productivity</button>
+    <button class="nav-btn" data-page="assortment"><span class="nav-num">04</span>Assortment & Category Productivity</button>
+    <button class="nav-btn" data-page="delivery"><span class="nav-num">05</span>Delivery & Return Diagnostic</button>
+  </nav>
+</aside>
+<main class="main">
+
+<section id="growth" class="page active">
+ <div class="page-head"><div><h1>Growth Driver Analysis</h1><p class="question">Is the revenue plateau driven by order volume or by average order value?</p></div><button class="reset" data-reset="growth">Reset filters</button></div>
+ <div class="filters" id="growth-filters"></div><div class="kpis" id="growth-kpis"></div>
+ <div class="grid">
+  <div class="panel span-8"><h3>Annual Performance Index</h3><div class="sub">Revenue vs Orders vs AOV · 2020 = 100</div><div class="chart-wrap"><canvas id="growth-index"></canvas></div></div>
+  <div class="panel span-4"><h3>Revenue Driver Decomposition</h3><div class="sub">Annual revenue, order volume and AOV</div><div class="chart-wrap"><canvas id="growth-decomp"></canvas></div></div>
+  <div class="panel span-12"><h3>Monthly Orders per Day & AOV</h3><div class="sub">Normalizes order volume for month length</div><div class="chart-wrap small"><canvas id="growth-monthly"></canvas></div></div>
+  <div class="panel span-12 insight" id="growth-insight"></div>
+ </div>
+</section>
+
+<section id="promotion" class="page">
+ <div class="page-head"><div><h1>Promotion Effectiveness</h1><p class="question">Do deeper discounts create commercially meaningful outcomes?</p></div><button class="reset" data-reset="promotion">Reset filters</button></div>
+ <div class="filters" id="promotion-filters"></div><div class="kpis" id="promotion-kpis"></div>
+ <div class="grid">
+  <div class="panel span-7"><h3>AOV by Discount Band</h3><div class="sub">Hero visual · observed association, not causal lift</div><div class="chart-wrap"><canvas id="promo-aov"></canvas></div></div>
+  <div class="panel span-5"><h3>Revenue per Promotion by Band</h3><div class="sub">Normalizes total revenue for promotion coverage</div><div class="chart-wrap"><canvas id="promo-rpp"></canvas></div></div>
+  <div class="panel span-6"><h3>Discount vs Revenue</h3><div class="sub">Promotion-level observed relationship</div><div class="chart-wrap small"><canvas id="promo-scatter"></canvas></div></div>
+  <div class="panel span-6"><h3>Returned-order Rate by Band</h3><div class="sub">Returned distinct orders / distinct orders</div><div class="chart-wrap small"><canvas id="promo-return"></canvas></div></div>
+  <div class="panel span-12"><h3>Promotion Detail</h3><div class="table-wrap"><table id="promo-table"></table></div></div>
+  <div class="panel span-12 insight" id="promotion-insight"></div>
+ </div>
+</section>
+
+<section id="workforce" class="page">
+ <div class="page-head"><div><h1>Workforce & Store Productivity</h1><p class="question">Does a larger current workforce correspond to proportional 2023 store output?</p></div><button class="reset" data-reset="workforce">Reset filters</button></div>
+ <div class="filters" id="workforce-filters"></div><div class="kpis" id="workforce-kpis"></div>
+ <div class="grid">
+  <div class="panel span-7"><h3>Current Headcount vs 2023 Revenue</h3><div class="sub">Each point is a store · cross-sectional diagnostic</div><div class="chart-wrap"><canvas id="work-scatter"></canvas></div></div>
+  <div class="panel span-5"><h3>Revenue per Employee by Staffing Band</h3><div class="chart-wrap"><canvas id="work-rpe"></canvas></div></div>
+  <div class="panel span-5"><h3>Orders per Employee by Staffing Band</h3><div class="chart-wrap small"><canvas id="work-ope"></canvas></div></div>
+  <div class="panel span-7"><h3>Store Productivity Extremes</h3><div class="table-wrap"><table id="work-table"></table></div></div>
+  <div class="panel span-12 insight" id="workforce-insight"></div>
+ </div>
+</section>
+
+<section id="assortment" class="page">
+ <div class="page-head"><div><h1>Assortment & Category Productivity</h1><p class="question">Is high category GMV driven by stronger SKUs or by a broader assortment?</p></div><button class="reset" data-reset="assortment">Reset filters</button></div>
+ <div class="filters" id="assortment-filters"></div><div class="kpis" id="assortment-kpis"></div>
+ <div class="grid">
+  <div class="panel span-7"><h3>SKU Count vs Category GMV</h3><div class="sub">Hero visual · category breadth relationship</div><div class="chart-wrap"><canvas id="assort-scatter"></canvas></div></div>
+  <div class="panel span-5"><h3>GMV per SKU</h3><div class="sub">Breadth-adjusted productivity</div><div class="chart-wrap"><canvas id="assort-gps"></canvas></div></div>
+  <div class="panel span-6"><h3>Breadth-adjusted Residual</h3><div class="chart-wrap small"><canvas id="assort-resid"></canvas></div></div>
+  <div class="panel span-6"><h3>Total GMV Rank vs Productivity Rank</h3><div class="chart-wrap small"><canvas id="assort-rank"></canvas></div></div>
+  <div class="panel span-12"><h3>Category / SKU Detail</h3><div class="table-wrap"><table id="assort-table"></table></div></div>
+  <div class="panel span-12 insight" id="assortment-insight"></div>
+ </div>
+</section>
+
+<section id="delivery" class="page">
+ <div class="page-head"><div><h1>Delivery & Return Diagnostic</h1><p class="question">Does the recorded late status materially increase return likelihood?</p></div><button class="reset" data-reset="delivery">Reset filters</button></div>
+ <div class="filters" id="delivery-filters"></div><div class="kpis" id="delivery-kpis"></div>
+ <div class="grid">
+  <div class="panel span-7"><h3>Returned-order Rate by Shipment Status</h3><div class="sub">Hero visual · order-level rate</div><div class="chart-wrap"><canvas id="delivery-status"></canvas></div></div>
+  <div class="panel span-5"><h3>Late vs Non-late</h3><div class="sub">Service monitoring separated from return causality</div><div class="chart-wrap"><canvas id="delivery-late"></canvas></div></div>
+  <div class="panel span-6"><h3>Basket-size Sensitivity</h3><div class="chart-wrap small"><canvas id="delivery-basket"></canvas></div></div>
+  <div class="panel span-6"><h3>Highest Store Late Rates</h3><div class="chart-wrap small"><canvas id="delivery-store"></canvas></div></div>
+  <div class="panel span-12 insight" id="delivery-insight"></div>
+ </div>
+</section>
+
+</main></div>
+<script src="assets/js/filters.js"></script>
+<script src="assets/js/charts.js"></script>
+<script src="assets/js/app.js"></script>
+</body></html>
