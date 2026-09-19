@@ -5,7 +5,7 @@ window.DashFilters = (() => {
   promotion:[["year","Year"],["city","City"],["store_id","Store"],["discount_band","Discount Band"],["promotion_id","Promotion"]],
   workforce:[["city","City"],["store_id","Store"],["staffing_band","Staffing Band"]],
   assortment:[["category_name","Category"],["supplier_id","Supplier"],["country","Supplier Country"],["product_id","Product"]],
-  delivery:[["year","Year"],["city","City"],["store_id","Store"],["status","Shipment Status"],["category_name","Category"],["basket_band","Basket Line Band"]]
+  delivery:[["year","Year"],["city","City"],["store_id","Store"],["category_name","Category"],["basket_band","Basket Line Band"]]
  };
  const state={};
  const label=v=>String(v).replace(/^(\d+)$/,"$1");
