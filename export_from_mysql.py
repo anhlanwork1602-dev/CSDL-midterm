@@ -2,6 +2,13 @@ import os
 from pathlib import Path
 import pandas as pd
 import mysql.connector
+ENV_FILE = Path(__file__).resolve().parent / ".env"
+
+if ENV_FILE.exists():
+    for line in ENV_FILE.read_text().splitlines():
+        if "=" in line:
+            key, value = line.split("=", 1)
+            os.environ.setdefault(key.strip(), value.strip())
 
 # Database connection configuration (password from environment variable)
 DB_CONFIG = {
@@ -43,7 +50,7 @@ def export_table(table_name: str, cnx) -> None:
     df = pd.read_sql(query, cnx)
     csv_path = DATA_DIR / f"{table_name}.csv"
     df.to_csv(csv_path, index=False)
-    print(f"Exported {table_name} → {csv_path}")
+    print(f"Exported {table_name} -> {csv_path}")
 
 def main():
     cnx = mysql.connector.connect(**DB_CONFIG)
